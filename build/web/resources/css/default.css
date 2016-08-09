@@ -1,0 +1,37 @@
+
+body{
+    background-color: #C0C0C0;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:nth-child(even) {background-color: #f2f2f2}
+div{
+    margin: auto;
+    width:30%;
+    padding:50px;
+}
+input {
+    width: 500px;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+input:hover {background-color: #3e8e41}
+

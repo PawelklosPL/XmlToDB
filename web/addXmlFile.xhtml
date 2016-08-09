@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+
+        <h:outputStylesheet library="css" name="default.css"/>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2"/>
+        <SCRIPT LANGUAGE= "JavaScript" type= "text/javascript">
+            var timerID = null
+            function wyswietlCzas()
+            {
+                var data = new Date();
+                var godziny = data.getHours();
+                var minuty = data.getMinutes();
+                var sekundy = data.getSeconds();
+                var czas = godziny;
+                czas += ((minuty == 10) ? ":0" : ":") + minuty;
+                czas += ((sekundy == 10) ? ":0" : ":") + sekundy;
+                document.title = czas;
+                timerID = setTimeout("wyswietlCzas()", 1000);
+            }
+        </SCRIPT>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body onLoad="wyswietlCzas()">
+        <div>
+            <h:form enctype="multipart/form-data">
+
+                <h:commandButton value="Powrót" action="index"/>
+                <br/><br/>
+                <h:inputFile  value="#{myBean.file}"/>
+                <br/><br/>
+                <h:commandButton  value="Upload" action="#{myBean.upload()}"/>
+            </h:form>
+        </div>  
+    </body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Wyświetlanie bazy</title>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript">
+            function drukuj() {
+
+                if (!window.print) {
+                    alert("Twoja przeglądarka nie drukuje!")
+                    return 0;
+                }
+                window.print();
+            }
+        </script>
+    </h:head>
+    <body>
+        <h:form>
+            <div class="container">
+                <p>
+                    <h:commandButton  style="width: 30%;"  id="login" value="Drukuj" 
+                                      onclick="javascript:drukuj();" type="submit"/>
+                </p>
+                <h:commandButton value="Powrót" action="index"/>
+                <br/><br/>
+                <h:dataTable  id="table1" value="#{myBean.getListForDisplay()}" var="c"
+                              styleClass="order-table"
+                              headerClass="order-table-header"
+                              rowClasses="order-table-odd-row,order-table-even-row"
+                              border="1"
+                              >
+                    <h:column>
+                        <f:facet name="header">
+                            <h:commandLink action="#{myBean.sortingName()}">
+                                name
+                            </h:commandLink>
+                        </f:facet>
+                        #{c.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:commandLink action="#{myBean.sortingSurname()}">
+                                surname
+                            </h:commandLink>
+                        </f:facet>
+                        #{c.surname}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:commandLink action="#{myBean.sortingLogin()}">
+                                login
+                            </h:commandLink>
+                        </f:facet>
+                        #{c.login}
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </h:form>
+    </body>
+</html>
