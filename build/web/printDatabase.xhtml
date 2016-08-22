@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Wyświetlanie bazy</title>
         <h:outputStylesheet library="css" name="default.css"/>
@@ -21,43 +22,45 @@
     <body>
         <h:form>
             <div class="container">
-                <p>
-                    <h:commandButton  style="width: 30%;"  id="login" value="Drukuj" 
-                                      onclick="javascript:drukuj();" type="submit"/>
-                </p>
+                <h:commandButton id="login" value="Drukuj" 
+                                 onclick="javascript:drukuj();" type="submit"/><br/><br/>
                 <h:commandButton value="Powrót" action="index"/>
                 <br/><br/>
-                <h:dataTable  id="table1" value="#{myBean.getListForDisplay()}" var="c"
-                              styleClass="order-table"
-                              headerClass="order-table-header"
-                              rowClasses="order-table-odd-row,order-table-even-row"
-                              border="1"
-                              >
-                    <h:column>
+
+
+                <p:dataTable  id="table1" var="c" value="#{myBean.getListForDisplay()}"
+                             paginator="true" rows="20"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20">
+
+
+                    <p:column>
                         <f:facet name="header">
                             <h:commandLink action="#{myBean.sortingName('name')}">
                                 name
                             </h:commandLink>
                         </f:facet>
                         #{c.name}
-                    </h:column>
-                    <h:column>
+                    </p:column>
+
+                    <p:column>
                         <f:facet name="header">
                             <h:commandLink action="#{myBean.sortingSurname('surname')}">
                                 surname
                             </h:commandLink>
                         </f:facet>
                         #{c.surname}
-                    </h:column>
-                    <h:column>
+                    </p:column>
+
+                    <p:column>
                         <f:facet name="header">
                             <h:commandLink action="#{myBean.sortingLogin('login')}">
                                 login
                             </h:commandLink>
                         </f:facet>
                         #{c.login}
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
             </div>
         </h:form>
     </body>

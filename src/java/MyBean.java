@@ -154,59 +154,60 @@ public class MyBean {
     }
 
     public void sorting(String sortingValue, String sortDirection) throws ClassNotFoundException, SQLException {
-            listForDisplay = new ArrayList<user>();
-            if (listForDisplay.isEmpty()) {
-                Connection myConn = null;
-                Statement myStmt = null;
-                ResultSet myRs = null;
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test082016", "root", "");
-                    myStmt = myConn.createStatement();
-                    myRs = myStmt.executeQuery("select * from users ORDER BY " + sortingValue + " " + sortDirection);
-                    while (myRs.next()) {
-                        listForDisplay.add(new user(myRs.getString("name"), myRs.getString("surname") + "_" + getMD5(myRs.getString("name")), myRs.getString("login")));
-                    }
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                } finally {
-                    if (myRs != null) {
-                        myRs.close();
-                    }
-                    if (myStmt != null) {
-                        myStmt.close();
-                    }
-                    if (myConn != null) {
-                        myConn.close();
-                    }
+        listForDisplay = new ArrayList<user>();
+        if (listForDisplay.isEmpty()) {
+            Connection myConn = null;
+            Statement myStmt = null;
+            ResultSet myRs = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test082016", "root", "");
+                myStmt = myConn.createStatement();
+                myRs = myStmt.executeQuery("select * from users ORDER BY " + sortingValue + " " + sortDirection);
+                while (myRs.next()) {
+                    listForDisplay.add(new user(myRs.getString("name"), myRs.getString("surname") + "_" + getMD5(myRs.getString("name")), myRs.getString("login")));
+                }
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            } finally {
+                if (myRs != null) {
+                    myRs.close();
+                }
+                if (myStmt != null) {
+                    myStmt.close();
+                }
+                if (myConn != null) {
+                    myConn.close();
                 }
             }
+        }
     }
 
     public void sortingName(String sortingValue) throws ClassNotFoundException, SQLException {
         if (sortByNameASC) {
-            sorting(sortingValue,"DESC");
+            sorting(sortingValue, "DESC");
             sortByNameASC = false;
         } else {
-            sorting(sortingValue,"ASC");
+            sorting(sortingValue, "ASC");
             sortByNameASC = true;
         }
     }
-        public void sortingSurname(String sortingValue) throws ClassNotFoundException, SQLException {
+
+    public void sortingSurname(String sortingValue) throws ClassNotFoundException, SQLException {
         if (sortBySurameASC) {
-            sorting(sortingValue,"DESC");
+            sorting(sortingValue, "DESC");
             sortBySurameASC = false;
         } else {
-            sorting(sortingValue,"ASC");
+            sorting(sortingValue, "ASC");
             sortBySurameASC = true;
         }
     }
-            public void sortingLogin(String sortingValue) throws ClassNotFoundException, SQLException {
+    public void sortingLogin(String sortingValue) throws ClassNotFoundException, SQLException {
         if (sortByLoginASC) {
-            sorting(sortingValue,"DESC");
+            sorting(sortingValue, "DESC");
             sortByLoginASC = false;
         } else {
-            sorting(sortingValue,"ASC");
+            sorting(sortingValue, "ASC");
             sortByLoginASC = true;
         }
     }
