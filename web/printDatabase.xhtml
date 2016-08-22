@@ -35,7 +35,7 @@
                               >
                     <h:column>
                         <f:facet name="header">
-                            <h:commandLink action="#{myBean.sortingName()}">
+                            <h:commandLink action="#{myBean.sortingName('name')}">
                                 name
                             </h:commandLink>
                         </f:facet>
@@ -43,7 +43,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:commandLink action="#{myBean.sortingSurname()}">
+                            <h:commandLink action="#{myBean.sortingSurname('surname')}">
                                 surname
                             </h:commandLink>
                         </f:facet>
@@ -51,7 +51,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:commandLink action="#{myBean.sortingLogin()}">
+                            <h:commandLink action="#{myBean.sortingLogin('login')}">
                                 login
                             </h:commandLink>
                         </f:facet>

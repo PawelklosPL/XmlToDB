@@ -150,78 +150,65 @@ public class MyBean {
                     myConn.close();
                 }
             }
-
         }
     }
 
-    public String sortingName() throws ClassNotFoundException, SQLException {
-        listForDisplay = new ArrayList<user>();
-        downloadingDataFromDatabase();
-        if (sortByNameASC) {
-            Collections.sort(listForDisplay, new Comparator<user>() {
-                @Override
-                public int compare(user fruit2, user fruit1) {
-                    return fruit1.getName().compareTo(fruit2.getName());
+    public void sorting(String sortingValue, String sortDirection) throws ClassNotFoundException, SQLException {
+            listForDisplay = new ArrayList<user>();
+            if (listForDisplay.isEmpty()) {
+                Connection myConn = null;
+                Statement myStmt = null;
+                ResultSet myRs = null;
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test082016", "root", "");
+                    myStmt = myConn.createStatement();
+                    myRs = myStmt.executeQuery("select * from users ORDER BY " + sortingValue + " " + sortDirection);
+                    while (myRs.next()) {
+                        listForDisplay.add(new user(myRs.getString("name"), myRs.getString("surname") + "_" + getMD5(myRs.getString("name")), myRs.getString("login")));
+                    }
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                } finally {
+                    if (myRs != null) {
+                        myRs.close();
+                    }
+                    if (myStmt != null) {
+                        myStmt.close();
+                    }
+                    if (myConn != null) {
+                        myConn.close();
+                    }
                 }
-            });
+            }
+    }
+
+    public void sortingName(String sortingValue) throws ClassNotFoundException, SQLException {
+        if (sortByNameASC) {
+            sorting(sortingValue,"DESC");
             sortByNameASC = false;
         } else {
-            Collections.sort(listForDisplay, new Comparator<user>() {
-                @Override
-                public int compare(user fruit2, user fruit1) {
-                    return fruit2.getName().compareTo(fruit1.getName());
-                }
-            });
+            sorting(sortingValue,"ASC");
             sortByNameASC = true;
         }
-        return null;
     }
-
-    public String sortingSurname() throws ClassNotFoundException, SQLException {
-
-        listForDisplay = new ArrayList<user>();
-        downloadingDataFromDatabase();
+        public void sortingSurname(String sortingValue) throws ClassNotFoundException, SQLException {
         if (sortBySurameASC) {
-            Collections.sort(listForDisplay, new Comparator<user>() {
-                @Override
-                public int compare(user fruit2, user fruit1) {
-                    return fruit1.getSurname().compareTo(fruit2.getSurname());
-                }
-            });
+            sorting(sortingValue,"DESC");
             sortBySurameASC = false;
         } else {
-            Collections.sort(listForDisplay, new Comparator<user>() {
-                @Override
-                public int compare(user fruit2, user fruit1) {
-                    return fruit2.getSurname().compareTo(fruit1.getSurname());
-                }
-            });
+            sorting(sortingValue,"ASC");
             sortBySurameASC = true;
         }
-        return null;
     }
-
-    public String sortingLogin() throws ClassNotFoundException, SQLException {
-        listForDisplay = new ArrayList<user>();
-        downloadingDataFromDatabase();
+            public void sortingLogin(String sortingValue) throws ClassNotFoundException, SQLException {
         if (sortByLoginASC) {
-            Collections.sort(listForDisplay, new Comparator<user>() {
-                @Override
-                public int compare(user fruit2, user fruit1) {
-                    return fruit1.getLogin().compareTo(fruit2.getLogin());
-                }
-            });
+            sorting(sortingValue,"DESC");
             sortByLoginASC = false;
         } else {
-            Collections.sort(listForDisplay, new Comparator<user>() {
-                @Override
-                public int compare(user fruit2, user fruit1) {
-                    return fruit2.getLogin().compareTo(fruit1.getLogin());
-                }
-            });
+            sorting(sortingValue,"ASC");
             sortByLoginASC = true;
         }
-        return null;
     }
 
     public void setFile(Part file) {
